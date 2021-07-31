@@ -1,0 +1,6 @@
+extends layout
+block content
+  p #{lotteries.length}
+  each lottery in lotteries
+    p #{lottery.name}
+    a(href=`/lottery/${lottery.id}`) #{lottery.name}
