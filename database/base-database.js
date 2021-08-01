@@ -18,7 +18,15 @@ class BaseDatabase {
 
   insert = (object) => {
     const objects = this.load();
+
+    /* requestlerden gelen objelerin tipi belli olmadığından bu şekilde genel bir ek yaptık base-database'i kullanan
+    modele göre obje oluşturuyor */
+    if (!(object instanceof this.model)) {
+      object = this.model.create(object);
+    }
+
     this.save(objects.concat(object));
+    return object;
   };
 
   remove = (index) => {
