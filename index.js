@@ -28,6 +28,11 @@ app.post("/lottery", (req, res) => {
   res.send(lottery);
 });
 
+app.delete("/lottery/:lotteryId", (req, res) => {
+  lotteryDatabase.removeBy("id", req.params.lotteryId);
+  res.send("OK");
+});
+
 app.listen(3000, () => {
   console.log("started listening on 3000");
 });
