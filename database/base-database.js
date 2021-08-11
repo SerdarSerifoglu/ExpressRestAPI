@@ -11,52 +11,23 @@ class BaseDatabase {
   };
 
   load = () => {
-    const file = fs.readFileSync(`./${this.filename}.json`, "utf8");
-    const objects = JSON.parse(file);
-    return objects.map(this.model.create);
+    return this.model.find();
   };
 
-  insert = (object) => {
-    const objects = this.load();
-
-    /* requestlerden gelen objelerin tipi belli olmadığından bu şekilde genel bir ek yaptık base-database'i kullanan
-    modele göre obje oluşturuyor */
-    if (!(object instanceof this.model)) {
-      object = this.model.create(object);
-    }
-
-    this.save(objects.concat(object));
-    return object;
+  insert = async (object) => {
+    return await this.model.create(object);
   };
 
-  remove = (index) => {
-    const objects = this.load();
-    objects.splice(index, 1);
-    this.save(objects);
+  removeBy = async (property, value) => {
+    await this.model.deleteOne({ [property]: value });
   };
 
-  removeBy = (property, value) => {
-    const objects = this.load();
-
-    const index = objects.findIndex((o) => o[property] === value);
-    if (index === -1) throw new Error(`Cannot find ${this.model.name}`);
-
-    objects.splice(index, 1);
-    this.save(objects);
-  };
-
-  update = (object) => {
-    const objects = this.load();
-    const index = objects.findIndex((o) => o.id === object.id);
-
-    if (index === -1) throw new Error(`Cannot find ${this.model.name} instance with id ${object.id}`);
-
-    objects.splice(index, 1, object);
-    this.save(objects);
+  update = async (id, object) => {
+    return this.model.findByIdAndUpdate(id, object);
   };
 
   findBy(property, value) {
-    return this.load().find((o) => o[property] === value);
+    return this.model.find({ [property]: value });
   }
 }
 

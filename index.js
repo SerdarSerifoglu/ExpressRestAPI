@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const LotteryRouter = require("./routes/lottery.js");
 const IndexRouter = require("./routes/index");
+require("./mongo-connection.js");
 
 const app = express();
 

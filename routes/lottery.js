@@ -20,8 +20,13 @@ router.post("/", (req, res) => {
 });
 
 router.delete("/:lotteryId", (req, res) => {
-  lotteryDatabase.removeBy("id", req.params.lotteryId);
+  lotteryDatabase.removeBy("_id", req.params.lotteryId);
   res.send("OK");
+});
+
+router.patch("/:lotteryId", async (req, res) => {
+  const { name } = req.body;
+  await lotteryDatabase.update(req.params.lotteryId, { name });
 });
 
 module.exports = router;

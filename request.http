@@ -1,0 +1,16 @@
+GET http://localhost:3000 HTTP/1.1
+
+###
+POST http://localhost:3000/lottery/ HTTP/1.1
+content-type: application/json
+
+{"name": "testReq"}
+
+###
+DELETE http://localhost:3000/lottery/610a6353f79d67931233740a HTTP/1.1
+
+###
+PATCH http://localhost:3000/lottery/61141ca428e1f60ec796a906 HTTP/1.1
+content-type: application/json
+
+{"name": "testReqDeğişti11123"}

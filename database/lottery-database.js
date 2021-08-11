@@ -1,5 +1,6 @@
 const BaseDatabase = require("./base-database");
-const Lottery = require("../lottery");
+// const Lottery = require("../lottery");
+const Lottery = require("../models/lottery.js");
 
 class LotteryDatabase extends BaseDatabase {
   constructor() {
